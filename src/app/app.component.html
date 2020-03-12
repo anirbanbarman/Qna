@@ -64,7 +64,8 @@
 
                   </select>
                   <p>)</p>
-                  <select #opt name="" id="">
+                  <select #opt name=""  (change)='OnCheck($event.target.checked,$event.target)' id="">
+                    <option disabled selected>Add Rules</option>
                     <option value="or">or</option>
                     <option value="and">and</option>
                   </select>
