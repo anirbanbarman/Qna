@@ -29,11 +29,13 @@ export class AppComponent {
   ]
   filteredQuestionList: Question[];
   filteredOption=[];
+  addRule:boolean=false;
   OnRule(question){
     console.log(question);
  
     let filtered=this.questionList.filter(_=>_.questionId!==question.questionId);
-    this.filteredQuestionList=filtered.filter(_=>_.questionId<question.questionId)
+    this.filteredQuestionList=filtered.filter(_=>_.questionId<question.questionId);
+    this.addRule=false;
   }
 
   OnSelect(questionId){
@@ -43,5 +45,14 @@ export class AppComponent {
   this.filteredOption=filt[0].options;
 
 
+  }
+  OnCheck(OnCheck,v){
+    console.log(OnCheck,v.value)
+    this.addRule=true;
+
+
+  }
+  RuleSave(Q1,O1){
+console.log(Q1,O1)
   }
 }

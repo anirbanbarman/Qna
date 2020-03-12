@@ -1,11 +1,11 @@
 <h1>Questions</h1>
 
 
-<div  style='margin: 10px;' class="accordion" id="accordionExample">
+<div style='margin: 10px;' class="accordion" id="accordionExample">
   <div class="card" *ngFor='let question of questionList;let i=index'>
     <div class="card-header" id="headingOne">
       <h2 class="mb-0">
-        <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#demo'+ i" 
+        <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#demo'+ i"
           aria-expanded="false" aria-controls="collapseOne">
           {{question.questionText}}
 
@@ -13,23 +13,30 @@
       </h2>
     </div>
 
-    <div id="demo{{i}}"  class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+    <div id="demo{{i}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
       <div class="card-body">
         <p>
-          <button class="btn btn-success" data-toggle="collapse" data-target="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">View details</button>
-          <button class="btn btn-warning" (click)='OnRule(question)' style="margin-left: 20px;" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Make Rule</button>
-          <button class="btn btn-danger" style="margin-left: 20px;" type="button" data-toggle="collapse" data-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample2">View Rule</button>
-        
+          <button class="btn btn-success" data-toggle="collapse" data-target="#multiCollapseExample1" role="button"
+            aria-expanded="false" aria-controls="multiCollapseExample1">View details</button>
+          <button class="btn btn-warning" (click)='OnRule(question)' style="margin-left: 20px;" type="button"
+            data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false"
+            aria-controls="multiCollapseExample2">Make Rule</button>
+          <button class="btn btn-danger" style="margin-left: 20px;" type="button" data-toggle="collapse"
+            data-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample2">View
+            Rule</button>
+
         </p>
         <div class="row">
           <div class="col">
             <div class="collapse multi-collapse" id="multiCollapseExample1">
               <div class="card card-body">
-               <div><strong>Question Id: </strong> {{question.questionId}}</div> 
-               <div><strong>Options: </strong> <ul *ngFor='let option of question.options'>
-                 <li>{{option.optionText}}</li>
-               </ul></div> 
+                <div><strong>Question Id: </strong> {{question.questionId}}</div>
+                <div><strong>Options: </strong>
+                  <ul *ngFor='let option of question.options'>
+                    <li>{{option.optionText}}</li>
+                  </ul>
                 </div>
+              </div>
             </div>
           </div>
           <div class="col">
@@ -38,28 +45,53 @@
                 <div *ngIf='i==0'>
                   <h2>Rule not applicable for this question</h2>
 
-                 
+
                 </div>
-                <div *ngIf='i!==0'class="col">
-                  <p>(</p>
-                  <select class="" id="Select01" (change)='OnSelect($event.target.value)'>
+                <div *ngIf='i!==0' class="col">
+                     <p>(</p>
+                      <select class="" #QSelect01 id="QSelect01" (change)='OnSelect($event.target.value)'>
                     <option selected disabled>Choose Question</option>
 
-                    <option *ngFor='let question of filteredQuestionList' [value]="question.questionId"> {{question.questionText}}</option>
-                   
+                    <option *ngFor='let question of filteredQuestionList' [value]="question.questionId">
+                      {{question.questionText}}</option>
+
                   </select>
-                 <select class="" id="inputGroupSelect01">
+                  <select class="" #OSelect01  id="OSelect01">
                     <option selected>Choose Option</option>
 
-                    <option *ngFor='let option of filteredOption' value="{{option.optionId}}"> {{option.optionText}}</option>
-                   
+                    <option *ngFor='let option of filteredOption' value="{{option.optionId}}"> {{option.optionText}}
+                    </option>
+
                   </select>
                   <p>)</p>
-                  <input type="checkbox" value="and">and
-                  <input type="checkbox" value="or">or
+                  <input type="checkbox" #opt (change)='OnCheck($event.target.checked,$event.target)' value="and">and
+                  <input type="checkbox"  #opt  (change)='OnCheck($event.target.checked,$event.target)' value="or">or
+
+                  <div *ngIf='addRule'>
+                    <p>(</p>
+                    <select class="" #QSelect02  id="SQelect02" (change)='OnSelect($event.target.value)'>
+                      <option selected disabled>Choose Question</option>
+
+                      <option *ngFor='let question of filteredQuestionList' [value]="question.questionId">
+                        {{question.questionText}}</option>
+
+                    </select>
+                    <select class="" id="OSelect01" #OSelect02 >
+                      <option selected>Choose Option</option>
+
+                      <option *ngFor='let option of filteredOption' value="{{option.optionId}}"> {{option.optionText}}
+                      </option>
+
+                    </select>
+                    <p>)</p>
+                  </div>
+                  <button class='btn btn-success'(click)='RuleSave(QSelect01.value,OSelect01.value)'>Save Rule</button>
+
+
+
 
                 </div>
-                
+
               </div>
             </div>
           </div>
@@ -69,7 +101,7 @@
                 <div *ngIf='i==0'>
                   <h1>No rules available</h1>
                 </div>
-                
+
               </div>
             </div>
           </div>
