@@ -64,13 +64,17 @@
 
                   </select>
                   <p>)</p>
-                  <input type="checkbox" #opt (change)='OnCheck($event.target.checked,$event.target)' value="and">and
-                  <input type="checkbox"  #opt  (change)='OnCheck($event.target.checked,$event.target)' value="or">or
+                  <select #opt name="" id="">
+                    <option value="or">or</option>
+                    <option value="and">and</option>
+                  </select>
+                  <!-- <input type="radio" #opt1 (change)='OnCheck($event.target.checked,$event.target)' value="and">and
+                  <input type="radio"  #opt2  (change)='OnCheck($event.target.checked,$event.target)' value="or">or -->
 
-                  <div *ngIf='addRule'>
+                  <div [ngStyle]="{'display':addRule? 'block' : 'none' }">
                     <p>(</p>
                     <select class="" #QSelect02  id="SQelect02" (change)='OnSelect($event.target.value)'>
-                      <option selected disabled>Choose Question</option>
+                      <option selected  disabled>Choose Question</option>
 
                       <option *ngFor='let question of filteredQuestionList' [value]="question.questionId">
                         {{question.questionText}}</option>
@@ -85,7 +89,7 @@
                     </select>
                     <p>)</p>
                   </div>
-                  <button class='btn btn-success'(click)='RuleSave(QSelect01.value,OSelect01.value)'>Save Rule</button>
+                  <button class='btn btn-success'(click)='RuleSave(QSelect01.value,OSelect01.value,opt.value,QSelect02.value,OSelect02.value)'>Save Rule</button>
 
 
 

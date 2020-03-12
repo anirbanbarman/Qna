@@ -52,7 +52,7 @@ export class AppComponent {
 
 
   }
-  RuleSave(Q1,O1){
-console.log(Q1,O1)
+  RuleSave(Q1,O1,opt,Q2,O2){
+console.log(Q1,O1,opt,Q2,O2)
   }
 }
